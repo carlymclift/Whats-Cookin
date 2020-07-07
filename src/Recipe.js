@@ -18,9 +18,12 @@ class Recipe {
         }
       })
     })
-    return costCounter;
+    return costCounter / 100
   }
 
+  getInstructions() {
+    return this.instructions;
+  }
 }
 
 
