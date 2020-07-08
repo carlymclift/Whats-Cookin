@@ -73,7 +73,6 @@ class User {
         }
       })
     })
-    console.log(searchList)
     return searchList;
   }
 }
