@@ -32,10 +32,19 @@ describe('Recipe', () => {
   })
 
   it('Should return the costs of its ingredients', () => {
-    expect(recipe.getCost()).to.equal(976);
-
+    expect(recipe.getCost()).to.equal(9.76);
   })
 
-
-
-})
+  it('Should return the instructions for recipe', () => {
+    expect(recipe.getInstructions()).to.deep.equal([
+      {
+        "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
+        "number": 1
+      },
+      {
+        "instruction": "Add egg and vanilla and mix until combined.",
+        "number": 2
+      },
+    ]);
+  });
+}) 
