@@ -2,10 +2,46 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Whats Cookin</title>
   </head>
   <body>
-    <h1>Whats Cookin</h1>
+    <section class='top-sec'>
+      <h1 class="welcome-user">Welcome, Username!</h1>
+      <h1>Whats Cookin</h1>
+      <form class='search-area'>
+            <input  id='search-input' type='text' class='search-box' placeholder='Search recipes...'>
+            <button id='search-button' class='search-button'>
+              <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
+            </button>
+        </form>
+    </section>
+    <div class="column-left">
+      <button>
+        <p>Home</p>
+      </button>
+      <button>
+        <p>Show Saved</p>
+      </button>
+      <button>
+        <p>My Meals</p>
+      </button>
+      <button>
+        <p>Shopping List</p>
+      </button>
+    </div>
+    <div class="column-center">
+      <div class="recipe-header">
+        <h1 class='message'>Find Recipes</h1>
+      </div>
+    </div>
+    <div class="column-left">
+      <div class="pantry-sec">
+        <h2 class="pantry-header">You're Pantry:</h2>
+      </div>
+      <div class="pantry" id="pantry">
+      </div>
+    </div>
 
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
