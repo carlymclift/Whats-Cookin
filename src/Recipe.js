@@ -24,8 +24,17 @@ class Recipe {
   getInstructions() {
     return this.instructions;
   }
-}
 
+//   translateRecipeIngredients() {
+//     return this.ingredients.reduce((newRecipeIng, ingredient) => {
+//       let translatedIng = {};
+//       translatedIng['id'] = ingredient.id;
+//       translatedIng['amount'] = ingredient.quantity.amount
+//       newRecipeIng.push(translatedIng)
+//       return newRecipeIng
+//     }, [])
+//   }
+}
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;

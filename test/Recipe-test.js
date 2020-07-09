@@ -47,4 +47,21 @@ describe('Recipe', () => {
       },
     ]);
   });
+
+  // t('Should be able to translate the user pantry to match the recipe ingredients', () => {
+  //   expect(recipe.translateRecipeIngredients()).to.deep.equal([
+  //     {
+  //       "amount": 1.5,
+  //       "id": 20081
+  //     },
+  //     {
+  //       "amount": 0.5,
+  //       "id": 18372
+  //     },
+  //     {
+  //       "amount": 1,
+  //       "id": 1123
+  //     }
+  //   ])
+  // })i
 }) 
