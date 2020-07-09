@@ -70,13 +70,13 @@ h1 {
 .column-left,
 .colum-right {
 	background: linear-gradient(white, #b39f94);
-    width: 25%;
+    width: 20%;
     height: 100vh;
 }
 
 .column-center {
 	background: white;
-	width: 50%;
+	width: 60%;
 }
 
 .pantry {
@@ -89,4 +89,23 @@ h1 {
     border: double black;
     grid-row: auto;
     grid-template-columns: 3;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  width: 100%;
+  border: solid 1px black;
+}
+
+.fixed-recipe-card {
+  border: solid 1px black;
+  margin: 0 5px;
+}
+
+.recipe-image {
+  width: 250px;
+  height: 220px;
+
 }
