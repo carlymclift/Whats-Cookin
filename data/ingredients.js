@@ -1,4 +1,3 @@
-const ingredients = require("../test/ingredientsSampleData")
 
 let ingredientsData = [
   {
@@ -1236,4 +1235,7 @@ let ingredientsData = [
   }
 ]
 
-module.exports = ingredientsData;
+if (typeof module !== 'undefined') {
+  module.exports = ingredientsData;
+}
+
