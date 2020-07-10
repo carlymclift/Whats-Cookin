@@ -53,61 +53,86 @@ h1 {
 	align-items: center;
 	float: left;
 	height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 }
 
 .column-left {
-    align-items: center;
+  align-items: center;
 	float: left;
 	height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.column-left,
-.colum-right {
+.column-left {
 	background: linear-gradient(white, #b39f94);
-    width: 20%;
+    width: 10%;
+    height: 100vh;
+}
+
+.column-right {
+	background: linear-gradient(white, #b39f94);
+    width: 25%;
     height: 100vh;
 }
 
 .column-center {
 	background: white;
-	width: 60%;
+	width: 65%;
 }
 
 .pantry {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-	height: 500px;
-    width: 250px;
-}
-
-.pantry {
+    /* grid-template-rows: auto; */
     border: double black;
-    grid-row: auto;
-    grid-template-columns: 3;
+	  height: 500px;
+    width: 250px;
 }
 
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  width: 100%;
-  border: solid 1px black;
+  grid-auto-rows: auto;
+  width: 92%;
+  row-gap: 50px;
+  column-gap: 15px;
+  border: dotted 1px gray;
 }
 
 .fixed-recipe-card {
-  border: solid 1px black;
-  margin: 0 5px;
+  display: grid;
+  grid-template-rows: 2fr, 1fr, 1fr;
+  /* border: solid 1px black; */
+}
+
+h3 {
+  margin: 5px;
 }
 
 .recipe-image {
   width: 250px;
-  height: 220px;
+  height: 200px;
+}
 
+.save-recipe-button-text {
+visibility: hidden;
+background-color: lightblue;
+color: teal;
+text-align: center;
+}
+
+.save-recipe-button:hover .save-recipe-button-text {
+visibility: visible;
+}
+
+.save-recipe-button {
+  background: transparent;
+  border: none;
+  width: 45px;
+  height: auto;
+  padding-bottom: 5px;
 }

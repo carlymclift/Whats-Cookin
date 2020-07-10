@@ -17,6 +17,10 @@ const populateCards = () => {
     <div id='595736' class='fixed-recipe-card'>
             <img class='recipe-image' src=${recipe.image} alt='Photo of Loaded Chocolate Chip Pudding Cookie Cups'>
             <h3>${recipe.name}</h3>
+             <button id='save-recipe-button' class='save-recipe-button'>
+              <span class="save-recipe-button-text">Save recipe</span>
+              <img class='save-image' src='https://image.flaticon.com/icons/svg/942/942176.svg' alt='Save recipe button'>
+            </button>
           </div>
           </section>`
   })
