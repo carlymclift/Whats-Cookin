@@ -1,4 +1,4 @@
-let ingredients = require('../data/ingredients');
+// let ingredients = require('../data/ingredients');
 
 class User {
   constructor(id, name, pantry) {
