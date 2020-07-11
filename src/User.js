@@ -27,7 +27,7 @@ class User {
 
   searchSaved(searchItem) {
     let ingredientId = null;
-    ingredients.forEach((ingredient) => {
+    ingredientsData.forEach((ingredient) => {
       if (searchItem.includes(ingredient.name)) {
         ingredientId = ingredient.id;
       }
