@@ -1,11 +1,19 @@
+// const usersData = require("../data/users");
+
+// const ingredientsData = require("../data/ingredients");
+
+// const ingredientsData = require("../data/ingredients");
+
 const recipeArea = document.querySelector('.card-container')
 const pantryArea = document.querySelector('.pantry')
 
+let user;
+
 const pickRandomUser = () => {
   let randomUser = Math.floor((Math.random() * 49));
-  let user = new User(usersData[randomUser].id, usersData[randomUser].name, usersData[randomUser].pantry)
+  user = new User(usersData[randomUser].id, usersData[randomUser].name, usersData[randomUser].pantry, )
   const welcomeMessage = document.querySelector('.welcome-user');
-  welcomeMessage.innerHTML = `Welcome ${user.name}`;
+  welcomeMessage.innerHTML = `Welcome ${user.name}!`;
   return user;
 }
 
@@ -26,21 +34,38 @@ const populateCards = () => {
   })
 }
 
-const populatePantry = () => {
-  pantryArea.innerHTML = ''
-  usersData.forEach(item => {
+  const translatePantry = (user) => {
+  user.pantry.reduce((newPantry, item) => {
+    ingredientsData.forEach(ingData => {
+      let translatedPantry = {}
+      if (ingData.id === item.ingredient) {
+        
+        translatedPantry['name'] = ingData.name
+        translatedPantry['ingredient'] = item.ingredient
+        translatedPantry['amount'] = item.amount
+        newPantry.push(translatedPantry)
+      }
+    })
+    console.log('new pantry', newPantry);
+    populatePantry(newPantry)
+    return newPantry
+  }, [])
+}
+
+const populatePantry = (newPantry) => {
+  pantryArea.innerHTML = '';
+  newPantry.forEach(item => {
     pantryArea.innerHTML += `
-    <div class="pantry" id="pantry">
-    <p>${item.pantry.ingredient}</p>
-      </div>
-    `
+    <div class="pantry id="pantry">
+    <p>${item.name}</p>
+    </div>`
   })
 }
 
 const loadWindow = () => {
   pickRandomUser()
   populateCards()
-  populatePantry()
+  translatePantry(user)
   // let recipe = new Recipe()
 }
 
