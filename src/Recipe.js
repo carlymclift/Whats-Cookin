@@ -9,7 +9,7 @@ class Recipe {
     this.ingredientsData = ingredientsData;
   }
 
-  addIngredientName() { // adds ingredient name to recipe ingredients object.
+  addIngredientName() { 
     this.ingredients.forEach(ingredient => {
       this.ingredientsData.forEach(item => {
         if (item.id === ingredient.id) {
