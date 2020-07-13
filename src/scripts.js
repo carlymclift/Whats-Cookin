@@ -1,8 +1,12 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
+// const saveRecipeButton = document.querySelector('.save-recipe-button')
 // const cardArea = document.querySelector('.card-container');
 
+// saveRecipeButton.addEventListener('click', addRecipeToFavorites)
+
 // cardArea.addEventListener('click', filterCardConditions())
+
 let user;
 
 const pickRandomUser = () => {
@@ -19,13 +23,13 @@ const populateCards = () => {
   recipeData.forEach(recipe => {
     recipeArea.innerHTML += `
     <section class='card-container'>
-      <div id='595736' class='fixed-recipe-card'>
+      <div class='fixed-recipe-card' data-id=${recipe.id}>
         <section class="card-buttons">
           <button id='save-recipe-button' class='save-recipe-button'></button>
           <button id='add-recipe-button' class='add-recipe-button'></button>
         </section>
         <h3>${recipe.name}</h3>
-        <input type="image" src=${recipe.image} name="recipe" class="recipe-image" id="recipe-image" />
+        <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
       </div>
     </section>`
 })
@@ -68,13 +72,34 @@ const populatePantry = (newPantry) => {
   })
 }
 
+const populateRecipes = () => {
+  recipeData.map(recipe => {
+   let newRecipe = new Recipe(recipe, ingredientsData); 
+    newRecipe.addIngredientName();
+    console.log(newRecipe);
+    return newRecipe;
+  });
+}
+
 const loadWindow = () => {
   pickRandomUser()
   populateCards()
   translatePantry(user)
-  // let recipe = new Recipe()
+  populateRecipes();
 }
 
-
-
 window.onload = loadWindow()
+
+
+const addRecipeToFavorites = (event) => {
+  let targetRecipe = recipeData.find(recipe => {
+    if (recipe.id ===
+      Number(event.target.parentNode.dataset.id)) {
+      console.log('recipe ID:', recipe.id)
+      return recipe;
+    }
+  })
+  console.log(targetRecipe)
+  user.updateSavedRecipes(user.favRecipes, targetRecipe);
+}
+recipeArea.addEventListener('click', addRecipeToFavorites)
