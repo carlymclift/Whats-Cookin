@@ -90,11 +90,12 @@ const loadWindow = () => {
 
 window.onload = loadWindow()
 
+
 const addRecipeToFavorites = (event) => {
   let targetRecipe = recipeData.find(recipe => {
-    if (recipe.id === 
+    if (recipe.id ===
       Number(event.target.parentNode.dataset.id)) {
-       console.log('recipe ID:', recipe.id)
+      console.log('recipe ID:', recipe.id)
       return recipe;
     }
   })
