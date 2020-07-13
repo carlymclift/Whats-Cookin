@@ -5,11 +5,7 @@ html {
 .top-sec {
     display: flex;
     justify-content: space-evenly;
-    border-bottom: solid;
-    border: rgb(50, 77, 228);
-    border-style: solid;
-    /* background: linear-gradient(white, #998e92); */
-    background-color: rgb(223, 213, 220);
+    background-color: rgb(25, 44, 13);
 }
 
 .welcome-user {
@@ -21,6 +17,11 @@ html {
 h1 {
     text-align: center;
     font-size: 40px;
+    color: white;
+}
+
+h3 {
+  font-size: 20px;
 }
 
 .search-area {
@@ -29,18 +30,20 @@ h1 {
 
 .search-button {
     width: 40px;
-    height: auto;
+    height: 40px;
+    border-radius: 50px;
 }
 
 .search-box {
-    height: 40px;
-    padding-top: 25px;
+    height: 20px;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 20px;
 }
 
 .hidden {
     display: none;
 }
-
 
 .header {
     background: black;
@@ -50,7 +53,6 @@ h1 {
 .column-left,
 .column-right,
 .column-center {
-	align-items: center;
 	float: left;
 	height: 100vh;
   display: flex;
@@ -61,36 +63,52 @@ h1 {
 .column-left {
   align-items: center;
 	float: left;
-	height: 100vh;
+  height: 100vh;
+  width: 10%;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(white, #c6ff98);
   justify-content: space-evenly;
 }
 
-.column-left {
-	background: linear-gradient(white, #b39f94);
-    width: 10%;
-    height: 100vh;
+.left-side-buttons,
+.filter-button {
+  border-radius: 50px;
+  border-color: #71ff1f;
+  background-color: #f0f0f0;
+  color: rgb(25, 44, 13);
+  font-size: 20px;  
+}
+
+.recipe-choices {
+  display: flex;
+  flex-direction: row;
+  padding: 45px;
+}
+
+.filter-button {
+  padding: 25px;
 }
 
 .column-right {
-	background: linear-gradient(white, #b39f94);
-    width: 25%;
-    height: 100vh;
+	background: linear-gradient(white, #c6ff98);
+  width: 25%;
+  overflow: scroll;
 }
 
 .column-center {
 	background: white;
-	width: 65%;
+  width: 65%;
+  align-items: center;
+  overflow: scroll;
 }
 
 .pantry {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* grid-template-rows: auto; */
-    border: double black;
-	  height: 500px;
-    width: 250px;
+    align-items: center;
+    padding-left: 15px;
+	  height: auto
 }
 
 .card-container {
@@ -100,39 +118,68 @@ h1 {
   width: 92%;
   row-gap: 50px;
   column-gap: 15px;
-  border: dotted 1px gray;
 }
 
 .fixed-recipe-card {
-  display: grid;
-  grid-template-rows: 2fr, 1fr, 1fr;
-  /* border: solid 1px black; */
+  display: inline-grid;
+  grid-template-rows: auto;
+  border: solid 3px #77df3b;
+  border-radius: 25px;
+  background-color: rgb(221, 221, 221);
 }
 
 h3 {
   margin: 5px;
 }
 
-.recipe-image {
-  width: 250px;
-  height: 200px;
+.card-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 60px;
+  padding: 10px;
 }
 
-.save-recipe-button-text {
-visibility: hidden;
-background-color: lightblue;
-color: teal;
-text-align: center;
-}
-
-.save-recipe-button:hover .save-recipe-button-text {
-visibility: visible;
+.save-recipe-button,
+.add-recipe-button {
+  background-color: white;
+  border-radius: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: solid 1px black;
+  background-size: 20px;
+  width: 40px;
+  height: 40px;
 }
 
 .save-recipe-button {
-  background: transparent;
-  border: none;
-  width: 45px;
-  height: auto;
-  padding-bottom: 5px;
+  background-image: url(https://image.flaticon.com/icons/svg/860/860808.svg);
+}
+
+.add-recipe-button {
+  background-image: url(https://image.flaticon.com/icons/svg/748/748113.svg);
+}
+
+.save-image,
+.add-image {
+  width: 30px;
+  height: 30px;
+}
+
+/* active heart:
+https://image.flaticon.com/icons/svg/860/860757.svg
+*/
+
+.recipe-image {
+  width: 350px;
+  height: 300px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  align-items: center;
+}
+
+.recipe-image-button {
+  width: 360px;
+  height: 310px;
 }
