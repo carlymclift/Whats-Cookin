@@ -9,6 +9,17 @@ class Recipe {
     this.ingredientsData = ingredientsData;
   }
 
+  addIngredientName() { // adds ingredient name to recipe ingredients object.
+    this.ingredients.forEach(ingredient => {
+      this.ingredientsData.forEach(item => {
+        if (item.id === ingredient.id) {
+          ingredient.name = item.name;
+        }
+      })
+    })
+    return this.ingredients
+  }
+
   getCost() { 
     let costCounter = 0;
     this.ingredients.forEach(ingredient => {
