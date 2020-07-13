@@ -1,11 +1,10 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
-// const saveRecipeButton = document.querySelector('.save-recipe-button')
-// const cardArea = document.querySelector('.card-container');
-
-// saveRecipeButton.addEventListener('click', addRecipeToFavorites)
-
-// cardArea.addEventListener('click', filterCardConditions())
+const showSavedRecipesButton = document.querySelector('.show-saved-button');
+const homeButton = document.querySelector('.home-button');
+// const navigationArea = document.querySelector('.navigation-area')
+// const saveRecipeButton = document.querySelector('.save-recipe-button');
+// const addRecipeButton = document.querySelector('.add-recipe-button');
 
 let user;
 
@@ -19,15 +18,12 @@ const pickRandomUser = () => {
 
 const populateCards = () => {
   recipeArea.innerHTML = ''
-
   recipeData.forEach(recipe => {
     recipeArea.innerHTML += `
     <section class='card-container'>
       <div class='fixed-recipe-card' data-id=${recipe.id}>
-        <section class="card-buttons">
           <button id='save-recipe-button' class='save-recipe-button'></button>
           <button id='add-recipe-button' class='add-recipe-button'></button>
-        </section>
         <h3>${recipe.name}</h3>
         <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
       </div>
@@ -35,15 +31,26 @@ const populateCards = () => {
 })
 }
 
-// const filterCardConditions = () => {
-//   if (event.target.classList.contains('save-recipe-button')) {
-//     addToFavorites();
-//   } else if (event.target.classList.contains('add-recipe-button')) {
-//     addMeal();
-//   } else if (event.target.classList.contains('recipe-image')) {
-//     displayDirections();
-//   }
-// }
+// use function below to also display 'user.mealsToCook' 
+const displaySavedRecipes = () => {
+  recipeArea.innerHTML = ''
+  // user.mealsToCook.forEach....
+  user.favRecipes.forEach(recipe => {
+    recipeArea.innerHTML += `
+    <section class='card-container' >
+      <div class='fixed-recipe-card' data-id=${recipe.id}>
+          <button class='delete-recipe-button'></button>
+          <button id='add-recipe-button' class='add-recipe-button'></button>
+        <h3>${recipe.name}</h3>
+        <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
+      </div>
+    </section>`
+  })
+}
+
+// NAVIGATION COLUMN EVENT LISTENERS (NEED TO PUT IN ONE FUNCTION)
+showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
+homeButton.addEventListener('click', populateCards)
 
 const translatePantry = (user) => {
   user.pantry.reduce((newPantry, item) => {
@@ -75,7 +82,7 @@ const populatePantry = (newPantry) => {
 const populateRecipes = () => {
   recipeData.map(recipe => {
    let newRecipe = new Recipe(recipe, ingredientsData); 
-    newRecipe.addIngredientName();
+    newRecipe.addIngredientName(); // delete if we don't use this
     console.log(newRecipe);
     return newRecipe;
   });
@@ -90,7 +97,7 @@ const loadWindow = () => {
 
 window.onload = loadWindow()
 
-
+// user function below to also add recipe to user.mealsToCook
 const addRecipeToFavorites = (event) => {
   let targetRecipe = recipeData.find(recipe => {
     if (recipe.id ===
@@ -101,5 +108,9 @@ const addRecipeToFavorites = (event) => {
   })
   console.log(targetRecipe)
   user.updateSavedRecipes(user.favRecipes, targetRecipe);
+  // user.updateSavedRecipes([PASS IN favRecipes/mealsToCook], targetRecipe);
 }
+
 recipeArea.addEventListener('click', addRecipeToFavorites)
+
+

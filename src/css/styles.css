@@ -2,6 +2,10 @@ html {
     font-family: Gill Sans, sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 .top-sec {
     display: flex;
     justify-content: space-evenly;
@@ -140,6 +144,7 @@ h3 {
   padding: 10px;
 }
 
+.delete-recipe-button,
 .save-recipe-button,
 .add-recipe-button {
   background-color: white;
@@ -158,6 +163,10 @@ h3 {
 
 .add-recipe-button {
   background-image: url(https://image.flaticon.com/icons/svg/748/748113.svg);
+}
+
+.delete-recipe-button {
+  background-image: url(https://image.flaticon.com/icons/svg/3096/3096673.svg);
 }
 
 .save-image,
