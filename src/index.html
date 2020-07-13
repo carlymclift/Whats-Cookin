@@ -3,45 +3,51 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <title>Whats Cookin</title>
+    <title>What's Cookin'</title>
   </head>
   <body>
     <section class='top-sec'>
+      <h1>What's Cookin'</h1>
       <h1 class="welcome-user">Welcome!</h1>
-      <h1>Whats Cookin</h1>
-      <form class='search-area'>
-            <input  id='search-input' type='text' class='search-box' placeholder='Search recipes...'>
-            <button id='search-button' class='search-button'>
-              <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
-            </button>
-        </form>
+      
     </section>
     <div class="column-left">
-      <button>
+      <button class="left-side-buttons">
         <p>Home</p>
       </button>
-      <button>
+      <button class="left-side-buttons">
         <p>Show Saved</p>
       </button>
-      <button>
+      <button class="left-side-buttons">
         <p>My Meals</p>
       </button>
-      <button>
+      <button class="left-side-buttons">
         <p>Shopping List</p>
       </button>
     </div>
     <div class="column-center">
       <div class="recipe-header">
-        <h1 class='message'>Find Recipes</h1>
+        <!-- <h3 class='message'>Recipes:</h3> -->
       </div>
+      <div class="recipe-choices">
+        <button class="filter-button">Appetizers</button>
+        <button class="filter-button">Snacks</button>
+        <button class="filter-button">Desserts</button>
+        <button class="filter-button">Salads</button>
+        <button class="filter-button">Side Dishes</button>
+      </div>
+      <form class='search-area'>
+        <input  id='search-input' type='text' class='search-box' placeholder='Search recipes...'>
+        <button id='search-button' class='search-button'>
+          <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
+        </button>
+    </form>
         <section class='card-container'>
+          
           <div id='595736' class='fixed-recipe-card'>
+            <button id='save-recipe-button' class='save-recipe-button'></button>
             <img class='recipe-image' src="https://spoonacular.com/recipeImages/595736-556x370.jpg" alt='Photo of Loaded Chocolate Chip Pudding Cookie Cups'>
             <h3>Loaded Chocolate Chip Pudding Cookie Cups</h3>
-            <button id='save-recipe-button' class='save-recipe-button'>
-              <span class="save-recipe-button-text">Save recipe</span>
-              <img class='save-image' src='https://image.flaticon.com/icons/svg/942/942176.svg' alt='Save recipe button'>
-            </button>
           </div>
       </section>
     </div>
