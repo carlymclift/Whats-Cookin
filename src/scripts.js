@@ -29,7 +29,7 @@ const populateCards = () => {
           <button id='add-recipe-button' class='add-recipe-button'></button>
         </section>
         <h3>${recipe.name}</h3>
-        <input type="image" src=${recipe.image} name="recipe" class="recipe-image" id="recipe-image" />
+        <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
       </div>
     </section>`
 })
