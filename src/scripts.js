@@ -139,7 +139,7 @@ const loadWindow = () => {
 window.onload = loadWindow()
 
 // user function below to also add recipe to user.mealsToCook
-const addRecipeToFavorites = (event) => {
+const saveRecipe = (event, listToUpdate) => {
   let targetRecipe = recipeData.find(recipe => {
     if (recipe.id ===
       Number(event.target.parentNode.dataset.id)) {
@@ -148,17 +148,18 @@ const addRecipeToFavorites = (event) => {
     }
   })
   console.log(targetRecipe)
-  user.updateSavedRecipes(user.favRecipes, targetRecipe);
-  // user.updateSavedRecipes([PASS IN favRecipes/mealsToCook], targetRecipe);
+  user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
 const recipeImage = document.querySelector('.recipe-image');
 const saveRecipeButton = document.querySelector('.save-recipe-button');
-
+const addRecipeButton = document.querySelector('.add-recipe-button');
 
 const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
-    addRecipeToFavorites(event)
+    saveRecipe(event, user.favRecipes)
+  } else if (event.target.classList.contains('add-recipe-button')) {
+    saveRecipe(event, user.recipesToCook)
   } else if (event.target.classList.contains('recipe-image')) {
     displayDirections(event);
   }
@@ -166,7 +167,6 @@ const filterCardConditions = (event) => {
 
 showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
 homeButton.addEventListener('click', populateCards)
-
 recipeArea.addEventListener('click', filterCardConditions)
 
 
