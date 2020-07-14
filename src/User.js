@@ -15,7 +15,7 @@ class User {
       savedList.push(recipe)
     } else {
       let recipeIndex = savedList.indexOf(recipe);
-      savedList.splice(recipeIndex);
+      savedList.splice(recipeIndex, 1);
     }
   }
 
