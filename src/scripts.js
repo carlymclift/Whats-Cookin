@@ -14,34 +14,36 @@ const pickRandomUser = () => {
   return user;
 }
 
-const populateCards = () => {
+const populateCards = (dataToDisplay) => {
   recipeArea.innerHTML = ''
-  recipeData.forEach(recipe => {
+  dataToDisplay.forEach(recipe => {
     recipeArea.innerHTML += `
     <section class='card-container'>
       <div class='fixed-recipe-card' data-id=${recipe.id}>
-          <button id='save-recipe-button' class='save-recipe-button'></button>
+          <button id='save-recipe-button' class='save${recipe.id} save-recipe-button'></button>
           <button id='add-recipe-button' class='add-recipe-button'></button>
         <h3>${recipe.name}</h3>
         <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
       </div>
     </section>`
 })
+heartFavedCards()
 }
 
-const displaySavedRecipes = (listToDisplay) => {
-  recipeArea.innerHTML = ''
-  listToDisplay.forEach(recipe => {
-    recipeArea.innerHTML += `
-    <section class='card-container' >
-      <div class='fixed-recipe-card' data-id=${recipe.id}>
-          <button class='delete-recipe-button'></button>
-          <button id='add-recipe-button' class='add-recipe-button'></button>
-        <h3>${recipe.name}</h3>
-        <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
-      </div>
-    </section>`
-  })
+const heartFavedCards = () => {
+  if(user.favRecipes.length) {
+    user.favRecipes.forEach(recipe => {
+      document.querySelector(`.save${recipe.id}`).classList.add('save-active-button')
+    })
+  }
+}
+
+const updateIcons = (target) => {
+  if (!target.classList.contains('save-active-button')) {
+    target.classList.add('save-active-button')
+  } else if (target.classList.contains('save-active-button')) {
+    target.classList.remove('save-active-button')
+  }
 }
 
 const displayDirections = (event) => {
@@ -119,7 +121,7 @@ const populateRecipes = () => {
 
 const loadWindow = () => {
   pickRandomUser()
-  populateCards()
+  populateCards(recipeData)
   translatePantry(user)
   populateRecipes();
 }
@@ -136,6 +138,7 @@ const saveRecipe = (event, listToUpdate) => {
   })
   console.log(targetRecipe)
   user.updateSavedRecipes(listToUpdate, targetRecipe);
+  updateIcons(event.target)
 }
 
 const recipeImage = document.querySelector('.recipe-image');
@@ -159,13 +162,13 @@ const shoppingListButton = document.querySelector('.shopping-list-button');
 
 const changeDisplay = (event) => {
   if (event.target.classList.contains('show-saved-button')) {
-    displaySavedRecipes(user.favRecipes);
+    populateCards(user.favRecipes);
   } 
   if (event.target.classList.contains('my-meals-button')) {
-    displaySavedRecipes(user.recipesToCook);
+    populateCards(user.recipesToCook);
   } 
   if (event.target.classList.contains('home-button')) {
-    populateCards();
+    populateCards(recipeData);
   } 
   // if (event.target.classList.contains('shopping-list-button')) {
   // //   displayShoppingList()
