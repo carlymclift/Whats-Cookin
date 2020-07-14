@@ -1,13 +1,8 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
-const showSavedRecipesButton = document.querySelector('.show-saved-button');
-const homeButton = document.querySelector('.home-button');
 const mainSection = document.querySelector('.main-section')
 const fullCenterSec = document.querySelector('.column-center');
-
-// const navigationArea = document.querySelector('.navigation-area')
-// const saveRecipeButton = document.querySelector('.save-recipe-button');
-// const addRecipeButton = document.querySelector('.add-recipe-button');
+const navigationArea = document.querySelector('.navigation-area')
 
 let user;
 
@@ -34,11 +29,9 @@ const populateCards = () => {
 })
 }
 
-// use function below to also display 'user.mealsToCook' 
-const displaySavedRecipes = () => {
+const displaySavedRecipes = (listToDisplay) => {
   recipeArea.innerHTML = ''
-  // user.mealsToCook.forEach....
-  user.favRecipes.forEach(recipe => {
+  listToDisplay.forEach(recipe => {
     recipeArea.innerHTML += `
     <section class='card-container' >
       <div class='fixed-recipe-card' data-id=${recipe.id}>
@@ -89,10 +82,6 @@ const displayIngAndInstructions = (selectedRecipe) => {
   })
 }
 
-// NAVIGATION COLUMN EVENT LISTENERS (NEED TO PUT IN ONE FUNCTION)
-// showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
-// homeButton.addEventListener('click', populateCards)
-
 const translatePantry = (user) => {
   user.pantry.reduce((newPantry, item) => {
     ingredientsData.forEach(ingData => {
@@ -124,7 +113,6 @@ const populateRecipes = () => {
   recipeData.map(recipe => {
    let newRecipe = new Recipe(recipe, ingredientsData); 
     newRecipe.addIngredientName(); // delete if we don't use this
-    // console.log(newRecipe);
     return newRecipe;
   });
 }
@@ -138,8 +126,7 @@ const loadWindow = () => {
 
 window.onload = loadWindow()
 
-// user function below to also add recipe to user.mealsToCook
-const addRecipeToFavorites = (event) => {
+const saveRecipe = (event, listToUpdate) => {
   let targetRecipe = recipeData.find(recipe => {
     if (recipe.id ===
       Number(event.target.parentNode.dataset.id)) {
@@ -148,26 +135,45 @@ const addRecipeToFavorites = (event) => {
     }
   })
   console.log(targetRecipe)
-  user.updateSavedRecipes(user.favRecipes, targetRecipe);
-  // user.updateSavedRecipes([PASS IN favRecipes/mealsToCook], targetRecipe);
+  user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
 const recipeImage = document.querySelector('.recipe-image');
 const saveRecipeButton = document.querySelector('.save-recipe-button');
-
+const addRecipeButton = document.querySelector('.add-recipe-button');
 
 const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
-    addRecipeToFavorites(event)
+    saveRecipe(event, user.favRecipes)
+  } else if (event.target.classList.contains('add-recipe-button')) {
+    saveRecipe(event, user.recipesToCook)
   } else if (event.target.classList.contains('recipe-image')) {
     displayDirections(event);
   }
 }
 
-showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
-homeButton.addEventListener('click', populateCards)
+const showSavedRecipesButton = document.querySelector('.show-saved-button');
+const homeButton = document.querySelector('.home-button');
+const myMealsButton = document.querySelector('.my-meals-button');
+const shoppingListButton = document.querySelector('.shopping-list-button');
+
+const changeDisplay = (event) => {
+  if (event.target.classList.contains('show-saved-button')) {
+    displaySavedRecipes(user.favRecipes);
+  } 
+  if (event.target.classList.contains('my-meals-button')) {
+    displaySavedRecipes(user.recipesToCook);
+  } 
+  if (event.target.classList.contains('home-button')) {
+    populateCards();
+  } 
+  // if (event.target.classList.contains('shopping-list-button')) {
+  // //   displayShoppingList()
+  // }
+}
 
 recipeArea.addEventListener('click', filterCardConditions)
+navigationArea.addEventListener('click', changeDisplay)
 
 
 
