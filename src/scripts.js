@@ -4,7 +4,6 @@ const mainSection = document.querySelector('.main-section')
 const fullCenterSec = document.querySelector('.column-center');
 const navigationArea = document.querySelector('.navigation-area')
 
-
 let user;
 
 const pickRandomUser = () => {
@@ -114,7 +113,6 @@ const populateRecipes = () => {
   recipeData.map(recipe => {
    let newRecipe = new Recipe(recipe, ingredientsData); 
     newRecipe.addIngredientName(); // delete if we don't use this
-    // console.log(newRecipe);
     return newRecipe;
   });
 }
@@ -127,7 +125,6 @@ const loadWindow = () => {
 }
 
 window.onload = loadWindow()
-
 
 const saveRecipe = (event, listToUpdate) => {
   let targetRecipe = recipeData.find(recipe => {
@@ -170,9 +167,9 @@ const changeDisplay = (event) => {
   if (event.target.classList.contains('home-button')) {
     populateCards();
   } 
-  if (event.target.classList.contains('shopping-list-button')) {
-    displayShoppingList()
-  }
+  // if (event.target.classList.contains('shopping-list-button')) {
+  // //   displayShoppingList()
+  // }
 }
 
 recipeArea.addEventListener('click', filterCardConditions)
