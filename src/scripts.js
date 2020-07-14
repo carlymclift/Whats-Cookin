@@ -1,8 +1,9 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
-const mainSection = document.querySelector('.main-section')
+const mainSection = document.querySelector('.main-section');
 const fullCenterSec = document.querySelector('.column-center');
-const navigationArea = document.querySelector('.navigation-area')
+const navigationArea = document.querySelector('.navigation-area');
+const shoppingListArea = document.querySelector('.shopping-list-area');
 
 let user;
 
@@ -35,7 +36,7 @@ const displaySavedRecipes = (listToDisplay) => {
     recipeArea.innerHTML += `
     <section class='card-container' >
       <div class='fixed-recipe-card' data-id=${recipe.id}>
-          <button class='delete-recipe-button'></button>
+          <button class='delete-recipe-button ${listToDisplay}'></button>
           <button id='add-recipe-button' class='add-recipe-button'></button>
         <h3>${recipe.name}</h3>
         <input type="image" src=${recipe.image} alt='Photo of ${recipe.name} recipe' name="recipe" class="recipe-image" id="recipe-image" />
@@ -117,6 +118,22 @@ const populateRecipes = () => {
   });
 }
 
+const displayShoppingList = () => {
+  shoppingListArea.classList.remove('hidden');
+  recipeArea.innerHTML = '';
+  let shoppingList = pantry.checkPantry()
+  shoppingList.forEach(ingredient => {
+    recipeArea.innerHTML = `
+     <section class='shopping-list-area'>
+        <h2 class="shopping-list-header">Your Shopping List:</h2>
+        <ul class='shopping-list'>
+          <li>${ingredient.id}</li>
+        </ul>
+      </section>`
+      return shoppingList;
+  })
+}
+
 const loadWindow = () => {
   pickRandomUser()
   populateCards()
@@ -167,9 +184,9 @@ const changeDisplay = (event) => {
   if (event.target.classList.contains('home-button')) {
     populateCards();
   } 
-  // if (event.target.classList.contains('shopping-list-button')) {
-  // //   displayShoppingList()
-  // }
+  if (event.target.classList.contains('shopping-list-button')) {
+    displayShoppingList();
+  }
 }
 
 recipeArea.addEventListener('click', filterCardConditions)
