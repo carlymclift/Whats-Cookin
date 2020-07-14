@@ -7,7 +7,7 @@ class User {
     this.pantry = pantry;
     this.favRecipes = [];
     this.recipesToCook = [];
-    this.shoppinglist = [];
+    this.shoppinglist = []; // pantry.ingredientsNeeded
   }
 
   updateSavedRecipes(savedList, recipe) {

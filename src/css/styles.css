@@ -117,11 +117,11 @@ h3 {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
   width: 92%;
   row-gap: 50px;
-  column-gap: 15px;
+  column-gap: 10px;
 }
 
 .fixed-recipe-card {
@@ -169,19 +169,27 @@ h3 {
   background-image: url(https://image.flaticon.com/icons/svg/3096/3096673.svg);
 }
 
+.search-image {
+  background-image: url(https://image.flaticon.com/icons/svg/660/660029.svg);
+}
+
+.save-active-button {
+  background-image: url(https://image.flaticon.com/icons/svg/860/860757.svg);
+}
+
 .save-image,
 .add-image {
   width: 30px;
   height: 30px;
 }
 
-/* active heart:
-https://image.flaticon.com/icons/svg/860/860757.svg
-*/
+.recipe-heading {
+  padding: 25px;
+}
 
 .recipe-image {
-  width: 350px;
-  height: 300px;
+  width: 300px;
+  height: 250px;
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
