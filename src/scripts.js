@@ -2,6 +2,9 @@ const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
 const showSavedRecipesButton = document.querySelector('.show-saved-button');
 const homeButton = document.querySelector('.home-button');
+const mainSection = document.querySelector('.main-section')
+const fullCenterSec = document.querySelector('.column-center');
+
 // const navigationArea = document.querySelector('.navigation-area')
 // const saveRecipeButton = document.querySelector('.save-recipe-button');
 // const addRecipeButton = document.querySelector('.add-recipe-button');
@@ -48,9 +51,47 @@ const displaySavedRecipes = () => {
   })
 }
 
+const displayDirections = (event) => {
+  let selectedRecipe = recipeData.find(recipe => {
+    if (Number(event.target.parentNode.dataset.id) === recipe.id) {
+      console.log(recipe)
+      return recipe
+    }
+  })
+
+  fullCenterSec.innerHTML = ''
+      fullCenterSec.innerHTML = `
+    <h3 class="recipe-heading">${selectedRecipe.name}</h3>
+    <img src=${selectedRecipe.image} alt="Selected Recipe">
+    <h2>You will need:</h2> <div class="ingredients"></div>
+    <h2>Directions:</h2> <div class="instructions"></div>
+  `
+
+  displayIngAndInstructions(selectedRecipe)
+  return selectedRecipe;
+}
+
+const displayIngAndInstructions = (selectedRecipe) => {
+  let ingredientSec = document.querySelector('.ingredients')
+  let instructionSec = document.querySelector('.instructions')
+
+  selectedRecipe.ingredients.forEach(ingredient => {
+    ingredientSec.insertAdjacentHTML('afterbegin', `<ul><li>
+    ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+    ${ingredient.name}
+      </li></ul>`)
+  })
+
+  selectedRecipe.instructions.forEach(instruction => {
+    instructionSec.insertAdjacentHTML('afterbegin', `<ul><li>
+    ${instruction.instruction}
+      </li></ul>`)
+  })
+}
+
 // NAVIGATION COLUMN EVENT LISTENERS (NEED TO PUT IN ONE FUNCTION)
-showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
-homeButton.addEventListener('click', populateCards)
+// showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
+// homeButton.addEventListener('click', populateCards)
 
 const translatePantry = (user) => {
   user.pantry.reduce((newPantry, item) => {
@@ -83,7 +124,7 @@ const populateRecipes = () => {
   recipeData.map(recipe => {
    let newRecipe = new Recipe(recipe, ingredientsData); 
     newRecipe.addIngredientName(); // delete if we don't use this
-    console.log(newRecipe);
+    // console.log(newRecipe);
     return newRecipe;
   });
 }
@@ -111,6 +152,22 @@ const addRecipeToFavorites = (event) => {
   // user.updateSavedRecipes([PASS IN favRecipes/mealsToCook], targetRecipe);
 }
 
-recipeArea.addEventListener('click', addRecipeToFavorites)
+const recipeImage = document.querySelector('.recipe-image');
+const saveRecipeButton = document.querySelector('.save-recipe-button');
+
+
+const filterCardConditions = (event) => {
+  if (event.target.classList.contains('save-recipe-button')) {
+    addRecipeToFavorites(event)
+  } else if (event.target.classList.contains('recipe-image')) {
+    displayDirections(event);
+  }
+}
+
+showSavedRecipesButton.addEventListener('click', displaySavedRecipes)
+homeButton.addEventListener('click', populateCards)
+
+recipeArea.addEventListener('click', filterCardConditions)
+
 
 
