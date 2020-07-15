@@ -1,15 +1,12 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
 const mainSection = document.querySelector('.main-section');
-const fullCenterSec = document.querySelector('.column-center');
 const navigationArea = document.querySelector('.navigation-area');
-const shoppingListArea = document.querySelector('.shopping-list-area');
-const rightColumn = document.querySelector('.pantry-sec');
 const pantryHeader = document.querySelector('.pantry-header');
-const centerMain = document.querySelector('.center-main');
 const recipeFilterButtons = document.querySelector('.recipe-choices');
 const shoppingListButton = document.querySelector('.shopping-list-button');
-const pantryButton = document.querySelector('.pantry-button')
+const pantryButton = document.querySelector('.pantry-button');
+const textOfShoppingButton = document.querySelector('.shopping-list-text');
 
 let user, pantry;
 let shoppingList = [];
@@ -108,6 +105,7 @@ const translatePantry = (user) => {
         newPantry.push(translatedPantry)
       }
     })
+    console.log('new', newPantry)
     populateIngredients(newPantry)
     return newPantry
   }, [])
@@ -115,7 +113,8 @@ const translatePantry = (user) => {
 
 const populateIngredients = (list) => {
   pantryArea.innerHTML = '';
-  pantryHeader.innerText = 'Shopping List'
+  shoppingListButton.innerText = "Shopping List"
+  pantryHeader.innerText = 'Pantry:'
   list.forEach(item => {
     pantryArea.innerHTML += `
     <div class="pantry id="pantry">
@@ -126,7 +125,7 @@ const populateIngredients = (list) => {
 
 const populateShoppingList = (list) => {
   pantryArea.innerHTML = '';
-  pantryHeader.innerText = 'Shopping List'
+  pantryHeader.innerText = 'Shopping List:'
 
   var newArray = [].concat.apply([], list);
   console.log('newArray', newArray)
@@ -148,15 +147,6 @@ const populateRecipes = () => {
   });
 }
 
-const loadWindow = () => {
-  pickRandomUser()
-  populateCards(recipeData)
-  translatePantry(user)
-  populateRecipes();
-}
-
-window.onload = loadWindow()
-
 const saveRecipe = (event, listToUpdate) => {
   let targetRecipe = recipeData.find(recipe => {
     if (recipe.id ===
@@ -170,6 +160,25 @@ const saveRecipe = (event, listToUpdate) => {
   user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
+const findRecipe = (event) => {
+  let selectedRecipe = recipeData.find(recipe => recipe.id === Number(event.target.parentNode.dataset.id))
+  pantry = new Pantry(user.pantry)
+  pantry.checkPantry(selectedRecipe);
+  if(!pantry.ingredientsNeeded) {
+    alert('You have the ingredients!')
+    saveRecipe(event, user.recipesToCook)
+  } else {
+    alert('You don\'t have enough ingredients for this recipe. The needed ingredients have been added to your shopping list.')
+  }
+  shoppingList.push(pantry.ingredientsNeeded)
+}
+
+const displayShoppingList = () => {
+  pantry = new Pantry(user.pantry)
+  shoppingListButton.innerText = "Refresh List"
+  populateShoppingList(shoppingList);
+}
+
 const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
     saveRecipe(event, user.favRecipes)
@@ -180,24 +189,15 @@ const filterCardConditions = (event) => {
   }
 }
 
-const findRecipe = (event) => {
-  let selectedRecipe = recipeData.find(recipe => recipe.id === Number(event.target.parentNode.dataset.id))
-  pantry = new Pantry(user.pantry)
-  pantry.checkPantry(selectedRecipe);
-  let test = pantry.checkPantry(selectedRecipe)
-  if(!pantry.ingredientsNeeded) {
-    alert('You have the ingredients!')
-    saveRecipe(event, user.recipesToCook)
-  } else {
-    alert('You don\'t have enough ingredients for this recipe. The needed ingredients have been added to your shopping list')
-  }
-  shoppingList.push(pantry.ingredientsNeeded)
+const searchRecipes = () => {
+  alert('Sorry! The search function is under construction')
+  // let searchInput = 'Chip'
+  // console.log('search input', searchInput)
+  // let searchResults = user.searchSavedRecipes(searchInput);
+  // console.log('search results:', searchResults)
+  // populateCards(searchResults);
+  // event.preventDefault();
 }
-
-const showSavedRecipesButton = document.querySelector('.show-saved-button');
-const homeButton = document.querySelector('.home-button');
-const myMealsButton = document.querySelector('.my-meals-button');
-// const shoppingListButton = document.querySelector('.shopping-list-button');
 
 const changeDisplay = (event) => {
   if (event.target.classList.contains('show-saved-button')) {
@@ -211,19 +211,13 @@ const changeDisplay = (event) => {
   } 
 }
 
-const displayShoppingList = () => {
-  pantry = new Pantry(user.pantry)
-    console.log('shopping', shoppingList);
-    populateShoppingList(shoppingList);
-}
-
 const filterRecipeButtons = (event) => {
   if (event.target.classList.contains('appetizers')) {
     let filteredRecipes = user.filterSavedRecipes(recipeData, 'appetizer')
     populateCards(filteredRecipes)
   } 
-  if (event.target.classList.contains('snacks')) {
-    let filteredRecipes = user.filterSavedRecipes(recipeData, 'snack')
+  if (event.target.classList.contains('dinners')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'dinner')
     populateCards(filteredRecipes)
   } 
   if (event.target.classList.contains('salads')) {
@@ -240,22 +234,20 @@ const filterRecipeButtons = (event) => {
   } 
 }
 
+const loadWindow = () => {
+  pickRandomUser()
+  populateCards(recipeData)
+  translatePantry(user)
+  populateRecipes();
+}
+
+window.onload = loadWindow()
+
 recipeArea.addEventListener('click', filterCardConditions)
 navigationArea.addEventListener('click', changeDisplay)
 recipeFilterButtons.addEventListener('click', filterRecipeButtons)
 shoppingListButton.addEventListener('click', displayShoppingList)
 pantryButton.addEventListener('click', () => translatePantry(user))
-
-const searchRecipes = () => {
-  alert('Sorry! The search function is under construction')
-  // let searchInput = 'Chip'
-  // console.log('search input', searchInput)
-  // let searchResults = user.searchSavedRecipes(searchInput);
-  // console.log('search results:', searchResults)
-  // populateCards(searchResults);
-  // event.preventDefault();
-}
-
 // const searchInput = document.querySelector('.search-box');
 const searchButton = document.querySelector('.search-button');
 searchButton.addEventListener('click', searchRecipes)
