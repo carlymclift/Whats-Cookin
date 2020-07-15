@@ -97,14 +97,14 @@ const translatePantry = (user) => {
         newPantry.push(translatedPantry)
       }
     })
-    populatePantry(newPantry)
+    populateIngredients(newPantry)
     return newPantry
   }, [])
 }
 
-const populatePantry = (newPantry) => {
+const populateIngredients = (list) => {
   pantryArea.innerHTML = '';
-  newPantry.forEach(item => {
+  list.forEach(item => {
     pantryArea.innerHTML += `
     <div class="pantry id="pantry">
     <p>${item.name}</p>
@@ -118,22 +118,6 @@ const populateRecipes = () => {
     newRecipe.addIngredientName(); // delete if we don't use this
     return newRecipe;
   });
-}
-
-const displayShoppingList = () => {
-  shoppingListArea.classList.remove('hidden');
-  recipeArea.innerHTML = '';
-  let shoppingList = pantry.checkPantry()
-  shoppingList.forEach(ingredient => {
-    recipeArea.innerHTML = `
-     <section class='shopping-list-area'>
-        <h2 class="shopping-list-header">Your Shopping List:</h2>
-        <ul class='shopping-list'>
-          <li>${ingredient.id}</li>
-        </ul>
-      </section>`
-      return shoppingList;
-  })
 }
 
 const loadWindow = () => {
@@ -167,7 +151,6 @@ const filterCardConditions = (event) => {
     saveRecipe(event, user.favRecipes)
   } else if (event.target.classList.contains('add-recipe-button')) {
     findRecipe(event)
-    // saveRecipe(event, user.recipesToCook)
   } else if (event.target.classList.contains('recipe-image')) {
     displayDirections(event);
   }
@@ -203,7 +186,9 @@ const changeDisplay = (event) => {
     populateCards(recipeData);
   } 
   if (event.target.classList.contains('shopping-list-button')) {
-    displayShoppingList();
+    let pantry = new Pantry(user.pantry)
+    console.log(pantry.ingredientsNeeded);
+    populateIngredients(pantry.ingredientsNeeded);
   }
 }
 
