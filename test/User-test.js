@@ -10,7 +10,6 @@ describe('User', () => {
 
   beforeEach(() => {
     user = new User(userSample[0].id, userSample[0].name, userSample[0].pantry, ingredientSample);
-    // recipe = 'Loaded Chocolate Chip Pudding Cookie Cups';
     recipe = recipeSample;
   })
 
@@ -22,17 +21,12 @@ describe('User', () => {
     expect(user).to.be.an.instanceOf(User);
   })
 
-  //   it('Should throw an error if instance of user has no arguements', () => {
-  //     expect(() => { new User() }).to.throw(Error);
-  //   })
-
   it('Should hold on to data from the user', () => {
     expect(user.id).to.equal(1)
     expect(user.name).to.equal('Saige O\'Kon')
     expect(user.pantry).to.deep.equal(userSample[0].pantry)
     expect(user.favRecipes).to.deep.equal([]);
     expect(user.recipesToCook).to.deep.equal([]);
-    // expect(user.shoppinglist).to.deep.equal([])
   })
 
   it('Should be able to update favorite list', () => {
@@ -53,7 +47,7 @@ describe('User', () => {
 
   it('Should be able to filter favorite recipes by tag', () => {
     user.updateSavedRecipes(user.favRecipes, recipe[0]);
-    expect(user.filterSavedRecipes(user.favRecipes, "snack")).to.deep.equal([recipe[0]]);
+    expect(user.filterSavedRecipes(user.favRecipes, 'snack')).to.deep.equal([recipe[0]]);
   })
 
   it('Should be able to filter recipes to cook by tag', () => {
@@ -63,8 +57,7 @@ describe('User', () => {
 
   it('Should be able to search saved recipes by name or ingredient', () => {
     user.updateSavedRecipes(user.favRecipes, recipe[0]);
-    expect(user.searchSaved('Chip')).to.deep.equal([recipe[0]]);
-    expect(user.searchSaved('wheat flour')).to.deep.equal([recipe[0]]);
+    expect(user.searchSavedRecipes('Chip')).to.deep.equal([recipe[0]]);
+    expect(user.searchSavedRecipes("soda")).to.deep.equal([recipe[0]]);
   })
-
 })
