@@ -29,7 +29,7 @@ describe('Recipe', () => {
     expect(recipe.image).to.deep.equal('https://spoonacular.com/recipeImages/595736-556x370.jpg');
   })
 
-  it('should add the indgredient name to each ingredient in the recipe', () => {
+  it('should add the ingredient name to each ingredient in the recipe', () => {
     expect(recipe.addIngredientName()).to.deep.equal([
       {
         id: 20081,

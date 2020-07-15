@@ -9,7 +9,7 @@ class User {
 
   updateSavedRecipes(savedList, recipe) {
     if (!savedList.includes(recipe)) {
-      savedList.push(recipe)
+      savedList.push(recipe);
     } else {
       let recipeIndex = savedList.indexOf(recipe);
       savedList.splice(recipeIndex, 1);
@@ -27,12 +27,12 @@ class User {
     this.favRecipes.forEach(recipe => {
       recipe.ingredients.filter(ingredient => {
         if (ingredient.name.includes(searchItem)) {
-          searchList.push(recipe)
+          searchList.push(recipe);
         } 
       });
       this.favRecipes.filter(recipe => {
         if (recipe.name.includes(searchItem)) {
-          searchList.push(recipe)
+          searchList.push(recipe);
         }
       });
     });
