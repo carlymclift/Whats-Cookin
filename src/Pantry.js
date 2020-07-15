@@ -4,15 +4,6 @@ class Pantry {
     this.ingredientsNeeded = [];
   }
 
-  // translateUserPantry() {
-  //   return this.usersIngredients.reduce((newPantry, ingredient) => {
-  //     let translatedPantry = {};
-  //     translatedPantry['id'] = ingredient.ingredient;
-  //     translatedPantry['amount'] = ingredient.amount
-  //     newPantry.push(translatedPantry)
-  //     return newPantry
-  //   }, [])
-  // }
 
   checkPantry(recipe) {
     recipe.ingredients.forEach(recipeIngredient=> {
@@ -20,12 +11,14 @@ class Pantry {
 
       if (!userIngredient) {
         this.ingredientsNeeded.push({
+          name: recipeIngredient.name,
           id: recipeIngredient.id,
           amount: recipeIngredient.quantity.amount,
           unit: recipeIngredient.quantity.unit
         });
       } else if (userIngredient.amount < recipeIngredient.quantity.amount) {
         this.ingredientsNeeded.push({
+          name: recipeIngredient.name,
           id: recipeIngredient.id,
           amount: recipeIngredient.quantity.amount - userIngredient.amount,
           unit: recipeIngredient.quantity.unit
