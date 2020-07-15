@@ -79,7 +79,7 @@ const displayIngAndInstructions = (selectedRecipe) => {
   let ingredientSec = document.querySelector('.ingredients')
   let instructionSec = document.querySelector('.instructions')
 
-  selectedRecipe.ingredients.forEach(ingredient => {
+  selectedrecipeData.forEach(ingredient => {
     ingredientSec.insertAdjacentHTML('afterbegin', `<ul><li>
     ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
     ${ingredient.name}
@@ -191,15 +191,25 @@ const filterCardConditions = (event) => {
   }
 }
 
-const searchRecipes = () => {
-  alert('Sorry! The search function is under construction')
-  // let searchInput = 'Chip'
-  // console.log('search input', searchInput)
-  // let searchResults = user.searchSavedRecipes(searchInput);
-  // console.log('search results:', searchResults)
-  // populateCards(searchResults);
-  // event.preventDefault();
-}
+  const searchAllRecipes = (event) => {
+    event.preventDefault();
+    let searchItem = searchInput.value
+    let filteredInput = validateInput(searchItem );
+    let searchList = []
+      recipeData.filter(recipe => {
+        if (recipe.name.includes(filteredInput)) {
+          searchList.push(recipe)
+        }
+        return searchList;
+      });
+    searchInput.value = '';
+    populateCards(searchList);
+  }
+
+  const validateInput = (input) => {
+    if (typeof input !== 'string') return '';
+    return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+  }
 
 const changeDisplay = (event) => {
   if (event.target.classList.contains('show-saved-button')) {
@@ -250,6 +260,7 @@ navigationArea.addEventListener('click', changeDisplay)
 recipeFilterButtons.addEventListener('click', filterRecipeButtons)
 shoppingListButton.addEventListener('click', displayShoppingList)
 pantryButton.addEventListener('click', () => translatePantry(user))
-// const searchInput = document.querySelector('.search-box');
+
+const searchInput = document.getElementById('search-input');
 const searchButton = document.querySelector('.search-button');
-searchButton.addEventListener('click', searchRecipes)
+searchButton.addEventListener('click', searchAllRecipes)
