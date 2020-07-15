@@ -1,14 +1,11 @@
 const chai = require('chai');
 const expect = chai.expect;
 const Recipe = require('../src/Recipe');
-// const User = require('../src/User');
 const recipeSample = require('../test/recipeSampleData');
-// const userSample = require('../test/userSampleData');
 const ingredientSample = require('../test/ingredientsSampleData');
 
-
 describe('Recipe', () => {
-  let recipe
+  let recipe;
 
   beforeEach(() => {
     recipe = new Recipe(recipeSample[0], ingredientSample);
@@ -24,11 +21,28 @@ describe('Recipe', () => {
 
   it('Should hold on to data from the recipe', () => {
     expect(recipe.id).to.equal(595736);
-    expect(recipe.name).to.equal("Loaded Chocolate Chip Pudding Cookie Cups")
-    expect(recipe.instructions).to.deep.equal(recipeSample[0].instructions)
+    expect(recipe.name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups');
+    expect(recipe.instructions).to.deep.equal(recipeSample[0].instructions);
     expect(recipe.tags).to.deep.equal(recipeSample[0].tags);
-    expect(recipe.ingredientsData).to.deep.equal(ingredientSample)
-    expect(recipe.image).to.deep.equal("https://spoonacular.com/recipeImages/595736-556x370.jpg");
+    expect(recipe.ingredients).to.deep.equal(recipeSample[0].ingredients);
+    expect(recipe.ingredientsData).to.deep.equal(ingredientSample);
+    expect(recipe.image).to.deep.equal('https://spoonacular.com/recipeImages/595736-556x370.jpg');
+  })
+
+  it('should add the indgredient name to each ingredient in the recipe', () => {
+    expect(recipe.addIngredientName()).to.deep.equal([
+      {
+        id: 20081,
+        quantity: { amount: 1.5, unit: 'c' },
+        name: 'wheat flour'
+      },
+      {
+        id: 18372,
+        quantity: { amount: 0.5, unit: 'tsp' },
+        name: 'bicarbonate of soda'
+      },
+      { id: 1123, quantity: { amount: 1, unit: 'large' }, name: 'eggs' }
+    ]);
   })
 
   it('Should return the costs of its ingredients', () => {
@@ -47,21 +61,4 @@ describe('Recipe', () => {
       },
     ]);
   });
-
-  // t('Should be able to translate the user pantry to match the recipe ingredients', () => {
-  //   expect(recipe.translateRecipeIngredients()).to.deep.equal([
-  //     {
-  //       "amount": 1.5,
-  //       "id": 20081
-  //     },
-  //     {
-  //       "amount": 0.5,
-  //       "id": 18372
-  //     },
-  //     {
-  //       "amount": 1,
-  //       "id": 1123
-  //     }
-  //   ])
-  // })i
 }) 

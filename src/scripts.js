@@ -115,7 +115,7 @@ const populateIngredients = (list) => {
 const populateRecipes = () => {
   recipeData.map(recipe => {
    let newRecipe = new Recipe(recipe, ingredientsData); 
-    newRecipe.addIngredientName(); // delete if we don't use this
+    newRecipe.addIngredientName(); 
     return newRecipe;
   });
 }
@@ -195,5 +195,16 @@ const changeDisplay = (event) => {
 recipeArea.addEventListener('click', filterCardConditions)
 navigationArea.addEventListener('click', changeDisplay)
 
+const searchRecipes = () => {
+  alert('Sorry! The search function is under construction')
+  // let searchInput = 'Chip'
+  // console.log('search input', searchInput)
+  // let searchResults = user.searchSavedRecipes(searchInput);
+  // console.log('search results:', searchResults)
+  // populateCards(searchResults);
+  // event.preventDefault();
+}
 
-
+// const searchInput = document.querySelector('.search-box');
+const searchButton = document.querySelector('.search-button');
+searchButton.addEventListener('click', searchRecipes)
