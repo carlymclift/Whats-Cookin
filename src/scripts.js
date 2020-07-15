@@ -4,8 +4,15 @@ const mainSection = document.querySelector('.main-section');
 const fullCenterSec = document.querySelector('.column-center');
 const navigationArea = document.querySelector('.navigation-area');
 const shoppingListArea = document.querySelector('.shopping-list-area');
+const rightColumn = document.querySelector('.pantry-sec');
+const pantryHeader = document.querySelector('.pantry-header');
+const centerMain = document.querySelector('.center-main');
+const recipeFilterButtons = document.querySelector('.recipe-choices');
+const shoppingListButton = document.querySelector('.shopping-list-button');
+const pantryButton = document.querySelector('.pantry-button')
 
-let user;
+let user, pantry;
+let shoppingList = [];
 
 const pickRandomUser = () => {
   let randomUser = Math.floor((Math.random() * 49));
@@ -17,6 +24,7 @@ const pickRandomUser = () => {
 
 const populateCards = (dataToDisplay) => {
   recipeArea.innerHTML = ''
+  recipeArea.classList.add('card-container');
   dataToDisplay.forEach(recipe => {
     recipeArea.innerHTML += `
     <section class='card-container'>
@@ -55,12 +63,15 @@ const displayDirections = (event) => {
     }
   })
 
-  fullCenterSec.innerHTML = ''
-      fullCenterSec.innerHTML = `
+  recipeArea.innerHTML = ''
+  recipeArea.classList.remove('card-container');
+      recipeArea.innerHTML = `
+      <div class="recipe-display">
     <h3 class="recipe-heading">${selectedRecipe.name}</h3>
     <img src=${selectedRecipe.image} alt="Selected Recipe">
     <h2>You will need:</h2> <div class="ingredients"></div>
     <h2>Directions:</h2> <div class="instructions"></div>
+    </div>
   `
 
   displayIngAndInstructions(selectedRecipe)
@@ -104,12 +115,29 @@ const translatePantry = (user) => {
 
 const populateIngredients = (list) => {
   pantryArea.innerHTML = '';
+  pantryHeader.innerText = 'Shopping List'
   list.forEach(item => {
     pantryArea.innerHTML += `
     <div class="pantry id="pantry">
     <p>${item.name}</p>
     </div>`
   })
+}
+
+const populateShoppingList = (list) => {
+  pantryArea.innerHTML = '';
+  pantryHeader.innerText = 'Shopping List'
+
+  var newArray = [].concat.apply([], list);
+  console.log('newArray', newArray)
+
+  newArray.forEach(item => {
+    pantryArea.innerHTML += `
+    <div class="pantry id="pantry">
+    <p>${item.name}</p>
+    </div>`
+  })
+  return newArray
 }
 
 const populateRecipes = () => {
@@ -142,10 +170,6 @@ const saveRecipe = (event, listToUpdate) => {
   user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
-const recipeImage = document.querySelector('.recipe-image');
-const saveRecipeButton = document.querySelector('.save-recipe-button');
-const addRecipeButton = document.querySelector('.add-recipe-button');
-
 const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
     saveRecipe(event, user.favRecipes)
@@ -158,22 +182,22 @@ const filterCardConditions = (event) => {
 
 const findRecipe = (event) => {
   let selectedRecipe = recipeData.find(recipe => recipe.id === Number(event.target.parentNode.dataset.id))
-  console.log(selectedRecipe)
-  let pantry = new Pantry(user.pantry)
+  pantry = new Pantry(user.pantry)
+  pantry.checkPantry(selectedRecipe);
   let test = pantry.checkPantry(selectedRecipe)
-  if(!test.length) {
+  if(!pantry.ingredientsNeeded) {
     alert('You have the ingredients!')
     saveRecipe(event, user.recipesToCook)
   } else {
-    alert('You don\'t have enough ingredients, check your shopping list for update!')
+    alert('You don\'t have enough ingredients for this recipe. The needed ingredients have been added to your shopping list')
   }
-  console.log(test)
+  shoppingList.push(pantry.ingredientsNeeded)
 }
 
 const showSavedRecipesButton = document.querySelector('.show-saved-button');
 const homeButton = document.querySelector('.home-button');
 const myMealsButton = document.querySelector('.my-meals-button');
-const shoppingListButton = document.querySelector('.shopping-list-button');
+// const shoppingListButton = document.querySelector('.shopping-list-button');
 
 const changeDisplay = (event) => {
   if (event.target.classList.contains('show-saved-button')) {
@@ -185,15 +209,40 @@ const changeDisplay = (event) => {
   if (event.target.classList.contains('home-button')) {
     populateCards(recipeData);
   } 
-  if (event.target.classList.contains('shopping-list-button')) {
-    let pantry = new Pantry(user.pantry)
-    console.log(pantry.ingredientsNeeded);
-    populateIngredients(pantry.ingredientsNeeded);
-  }
+}
+
+const displayShoppingList = () => {
+  pantry = new Pantry(user.pantry)
+    console.log('shopping', shoppingList);
+    populateShoppingList(shoppingList);
+}
+
+const filterRecipeButtons = (event) => {
+  if (event.target.classList.contains('appetizers')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'appetizer')
+    populateCards(filteredRecipes)
+  } 
+  if (event.target.classList.contains('snacks')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'snack')
+    populateCards(filteredRecipes)
+  } 
+  if (event.target.classList.contains('salads')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'salad')
+    populateCards(filteredRecipes)
+  } 
+  if (event.target.classList.contains('breakfast')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'breakfast')
+    populateCards(filteredRecipes)
+  } 
+  if (event.target.classList.contains('side-dish')) {
+    let filteredRecipes = user.filterSavedRecipes(recipeData, 'side dish')
+    populateCards(filteredRecipes)
+  } 
 }
 
 recipeArea.addEventListener('click', filterCardConditions)
 navigationArea.addEventListener('click', changeDisplay)
-
-
+recipeFilterButtons.addEventListener('click', filterRecipeButtons)
+shoppingListButton.addEventListener('click', displayShoppingList)
+pantryButton.addEventListener('click', () => translatePantry(user))
 
