@@ -200,3 +200,11 @@ h3 {
   width: auto;
   height: auto;
 }
+
+.shopping-list {
+  display: grid;
+  width: 500px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  border: solid 1px black;
+}

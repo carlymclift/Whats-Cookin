@@ -1,8 +1,9 @@
 const recipeArea = document.querySelector('.card-container');
 const pantryArea = document.querySelector('.pantry');
-const mainSection = document.querySelector('.main-section')
+const mainSection = document.querySelector('.main-section');
 const fullCenterSec = document.querySelector('.column-center');
-const navigationArea = document.querySelector('.navigation-area')
+const navigationArea = document.querySelector('.navigation-area');
+const shoppingListArea = document.querySelector('.shopping-list-area');
 
 let user;
 
@@ -96,14 +97,14 @@ const translatePantry = (user) => {
         newPantry.push(translatedPantry)
       }
     })
-    populatePantry(newPantry)
+    populateIngredients(newPantry)
     return newPantry
   }, [])
 }
 
-const populatePantry = (newPantry) => {
+const populateIngredients = (list) => {
   pantryArea.innerHTML = '';
-  newPantry.forEach(item => {
+  list.forEach(item => {
     pantryArea.innerHTML += `
     <div class="pantry id="pantry">
     <p>${item.name}</p>
@@ -137,8 +138,8 @@ const saveRecipe = (event, listToUpdate) => {
     }
   })
   console.log(targetRecipe)
-  user.updateSavedRecipes(listToUpdate, targetRecipe);
   updateIcons(event.target)
+  user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
 const recipeImage = document.querySelector('.recipe-image');
@@ -149,10 +150,24 @@ const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
     saveRecipe(event, user.favRecipes)
   } else if (event.target.classList.contains('add-recipe-button')) {
-    saveRecipe(event, user.recipesToCook)
+    findRecipe(event)
   } else if (event.target.classList.contains('recipe-image')) {
     displayDirections(event);
   }
+}
+
+const findRecipe = (event) => {
+  let selectedRecipe = recipeData.find(recipe => recipe.id === Number(event.target.parentNode.dataset.id))
+  console.log(selectedRecipe)
+  let pantry = new Pantry(user.pantry)
+  let test = pantry.checkPantry(selectedRecipe)
+  if(!test.length) {
+    alert('You have the ingredients!')
+    saveRecipe(event, user.recipesToCook)
+  } else {
+    alert('You don\'t have enough ingredients, check your shopping list for update!')
+  }
+  console.log(test)
 }
 
 const showSavedRecipesButton = document.querySelector('.show-saved-button');
@@ -170,9 +185,11 @@ const changeDisplay = (event) => {
   if (event.target.classList.contains('home-button')) {
     populateCards(recipeData);
   } 
-  // if (event.target.classList.contains('shopping-list-button')) {
-  // //   displayShoppingList()
-  // }
+  if (event.target.classList.contains('shopping-list-button')) {
+    let pantry = new Pantry(user.pantry)
+    console.log(pantry.ingredientsNeeded);
+    populateIngredients(pantry.ingredientsNeeded);
+  }
 }
 
 recipeArea.addEventListener('click', filterCardConditions)

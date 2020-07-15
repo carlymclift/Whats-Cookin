@@ -7,7 +7,7 @@ class User {
     this.pantry = pantry;
     this.favRecipes = [];
     this.recipesToCook = [];
-    this.shoppinglist = [];
+    this.shoppinglist = []; // pantry.ingredientsNeeded
   }
 
   updateSavedRecipes(savedList, recipe) {
@@ -15,7 +15,7 @@ class User {
       savedList.push(recipe)
     } else {
       let recipeIndex = savedList.indexOf(recipe);
-      savedList.splice(recipeIndex);
+      savedList.splice(recipeIndex, 1);
     }
   }
 

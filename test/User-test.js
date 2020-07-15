@@ -32,6 +32,7 @@ describe('User', () => {
     expect(user.pantry).to.deep.equal(userSample[0].pantry)
     expect(user.favRecipes).to.deep.equal([]);
     expect(user.recipesToCook).to.deep.equal([]);
+    // expect(user.shoppinglist).to.deep.equal([])
   })
 
   it('Should be able to update favorite list', () => {
