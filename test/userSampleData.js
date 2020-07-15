@@ -23,7 +23,7 @@ const user = [
         "ingredient": 4895,
         "amount": 6
       },
-      { // Added additional ingredient for testing
+      { 
         "ingredient": 20081,
         "amount": 6
       },
