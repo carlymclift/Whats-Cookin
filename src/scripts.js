@@ -154,8 +154,8 @@ const saveRecipe = (event, listToUpdate) => {
     }
   })
   console.log(targetRecipe)
-  user.updateSavedRecipes(listToUpdate, targetRecipe);
   updateIcons(event.target)
+  user.updateSavedRecipes(listToUpdate, targetRecipe);
 }
 
 const recipeImage = document.querySelector('.recipe-image');
@@ -166,10 +166,25 @@ const filterCardConditions = (event) => {
   if (event.target.classList.contains('save-recipe-button')) {
     saveRecipe(event, user.favRecipes)
   } else if (event.target.classList.contains('add-recipe-button')) {
-    saveRecipe(event, user.recipesToCook)
+    findRecipe(event)
+    // saveRecipe(event, user.recipesToCook)
   } else if (event.target.classList.contains('recipe-image')) {
     displayDirections(event);
   }
+}
+
+const findRecipe = (event) => {
+  let selectedRecipe = recipeData.find(recipe => recipe.id === Number(event.target.parentNode.dataset.id))
+  console.log(selectedRecipe)
+  let pantry = new Pantry(user.pantry)
+  let test = pantry.checkPantry(selectedRecipe)
+  if(!test.length) {
+    alert('You have the ingredients!')
+    saveRecipe(event, user.recipesToCook)
+  } else {
+    alert('You don\'t have enough ingredients, check your shopping list for update!')
+  }
+  console.log(test)
 }
 
 const showSavedRecipesButton = document.querySelector('.show-saved-button');
