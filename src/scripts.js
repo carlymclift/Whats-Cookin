@@ -128,9 +128,11 @@ const populateShoppingList = (list) => {
   pantryHeader.innerText = 'Shopping List:'
 
   var newArray = [].concat.apply([], list);
-  console.log('newArray', newArray)
+  // console.log('newArray', newArray)
 
-  newArray.forEach(item => {
+  // let arrayWithNoDuplicates = newArray.filter((value, i) => newArray.indexOf(value) === i)
+  // console.log(arrayWithNoDuplicates)
+  arrayWithNoDuplicates.forEach(item => {
     pantryArea.innerHTML += `
     <div class="pantry id="pantry">
     <p>${item.name}</p>
