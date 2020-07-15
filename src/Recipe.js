@@ -1,11 +1,12 @@
 class Recipe {
   constructor(recipe, ingredientsData) {
-    this.id = recipe.id;
-    this.name = recipe.name;
-    this.instructions = recipe.instructions;
+    this.id = recipe.id === Number(recipe.id) ? recipe.id : undefined;
+    this.name = recipe.name ? recipe.name : undefined;
+    this.instructions = recipe.instructions instanceof Array ? recipe.instructions : undefined;
     this.tags = recipe.tags;
-    this.image = recipe.image;
-    this.ingredients = recipe.ingredients
+    this.image = recipe.image ? recipe.image : undefined;
+    this.ingredients = recipe.ingredients instanceof Array ? 
+      recipe.ingredients : undefined;
     this.ingredientsData = ingredientsData;
   }
 
@@ -17,7 +18,7 @@ class Recipe {
         }
       })
     })
-    return this.ingredients
+    return this.ingredients;
   }
 
   getCost() { 
@@ -29,22 +30,13 @@ class Recipe {
         }
       })
     })
-    return costCounter / 100
+    const recipeCost = costCounter / 100;
+    return recipeCost;
   }
 
   getInstructions() {
     return this.instructions;
   }
-
-//   translateRecipeIngredients() {
-//     return this.ingredients.reduce((newRecipeIng, ingredient) => {
-//       let translatedIng = {};
-//       translatedIng['id'] = ingredient.id;
-//       translatedIng['amount'] = ingredient.quantity.amount
-//       newRecipeIng.push(translatedIng)
-//       return newRecipeIng
-//     }, [])
-//   }
 }
 
 if (typeof module !== 'undefined') {

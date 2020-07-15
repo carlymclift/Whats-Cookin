@@ -1,9 +1,8 @@
 class Pantry {
   constructor(userPantry) {
-    this.usersIngredients = userPantry // user.pantry
+    this.usersIngredients = userPantry instanceof Array ? userPantry : undefined;
     this.ingredientsNeeded = [];
   }
-
 
   checkPantry(recipe) {
     recipe.ingredients.forEach(recipeIngredient=> {
