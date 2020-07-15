@@ -5,9 +5,9 @@
 - Carly Clift (GitHub: carlymclift)
 
 ## Abstract
-What's Cookin' display's to a user a selection of available recipes to cook, as well as, their pantry contents, a shopping list and the ability to save meals for later
+On What's Cookin's main page a user is given a selection of available recipes to cook. They are also able to view their pantry contents, a shopping list and have the ability to save meals for later.
 
-With each page refresh, a new random user see's a selection of recipes cards they can choose from. They can interact by saving the recipe to "Meals to Cook" or add a recipe to their favorites list. If a user tries to add a meal to cook without having the required ingredients for that recipe, than their shopping list will update for them!
+With each page refresh, a new random user see's a selection of recipes cards they can choose from. They can interact by saving the recipe to "Meals to Cook" or add a recipe to their favorite list. If a user tries to add a meal to cook without having the required ingredients for that recipe, then their shopping list will update for them!
 
 ## In Action
 Below is the home page for What's Cookin'. Here the user is greeted and the available recipes are displayed:
@@ -46,4 +46,5 @@ To view the site, change into the `src` directory and run `open index.html` on t
 - PR Template
 - Project Board: 
 
-(https://user-images.githubusercontent.com/61163743/87117451-d02eba80-c235-11ea-98ec-f91c9c4d2249.png)
+<img width="1431" alt="Screen Shot of project board" src="https://user-images.githubusercontent.com/61163743/87117451-d02eba80-c235-11ea-98ec-f91c9c4d2249.png">
+
